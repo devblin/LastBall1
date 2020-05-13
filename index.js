@@ -21,6 +21,7 @@ function Over() {
     overMessage.style.display = 'flex';
     pauseBut.style.display = 'none';
     homeBut.style.display = 'flex';
+    pauseMain.style.cssText = 'z-index:4';
 }
 function gameStart() {
     homePage.style.display = 'none';
