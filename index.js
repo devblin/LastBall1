@@ -1,13 +1,14 @@
 let homePage = document.getElementById('main');
 let homeBut = document.getElementById('home');
 let pauseBut = document.getElementById('pause');
-let pausePage = document.getElementById('game-paused');
 let pauseMain = document.getElementById('pause-main');
+let pausePage = document.getElementById('game-paused');
 let gameTap = document.getElementById('balltap');
 let gameOver = document.getElementById('gameover');
 let overMessage = document.getElementById('game-over');
 let screenWidth = window.innerWidth > 600 ? 540 : window.innerWidth;
 let screenWidthStyle = 'width:'+String(screenWidth)+'px';
+
 pauseMain.style.cssText = screenWidthStyle;
 homePage.style.cssText = screenWidthStyle;
 pauseBut.style.cssText = screenWidthStyle;
@@ -21,23 +22,21 @@ function Over() {
     pauseBut.style.display = 'none';
     homeBut.style.display = 'flex';
 }
-function trackPlay() {
-    gameTrack.play();
-    gameTrack.loop = true;
-}
 function gameStart() {
     homePage.style.display = 'none';
     pauseBut.style.display = 'flex';
-}
-function gamePaused() {
-    pausePage.style.display = 'flex';
-    homeBut.style.display = 'flex';
-    pauseBut.style.display = 'none';
 }
 function gameResumed() {
     pausePage.style.display = 'none';
     homeBut.style.display = 'none';
     pauseBut.style.display = 'flex';
+    pauseMain.style.cssText = 'z-index:2';
+}
+function gamePaused() {
+    pausePage.style.display = 'flex';
+    homeBut.style.display = 'flex';
+    pauseBut.style.display = 'none';
+    pauseMain.style.cssText = 'z-index:4';
 }
 function mainMenu() {
     window.location.reload();
