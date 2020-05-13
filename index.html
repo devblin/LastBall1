@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&family=Wallpoet&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEST</title>
+</head>
+<body style="margin: 0; display: flex; justify-content: center; background-color: rgb(59, 59, 59); z-index: 0;">
+
+    <audio id="gameover" src="IconAndSound/gameover.wav"></audio>
+    <audio id="LastBallSong" src="IconAndSound/LastBallSong.mp3"></audio>
+    <audio id="balltap" src="IconAndSound/balltap.wav"></audio>
+
+    <div id="pause-main">
+        <div class="pause" id="pause">
+            <div class="pause1"><img id="pause2" style="width: 50px;" src="IconAndSound/pause.svg" alt="Pause" onclick="gamePaused(); gamePause()"></div>
+        </div>
+        <div class="pause" id="home">
+            <div class="home1"><img id="home2" style="width: 50px;" src="IconAndSound/home.svg" alt="Home" onclick="mainMenu()"></div>
+        </div>
+    </div>
+    <div id="game-over">
+        <div id="over">Game Over <div style="font-size:20px; font-family: monospace; color: whitesmoke;">"Tap on home"</div></div>
+    </div>
+    <div id="game-paused">
+        <img id="play" src="IconAndSound/play.svg" alt="Play" onclick="gameResumed(); gamePause()">
+    </div>
+    <div id="main">
+        <div id="high-score">High Score : <div style="color: deepskyblue;"></div></div>
+        <div id="title" style="margin-top: 100px;">L<span style="color: deeppink;">a</span>s<span style="color: deepskyblue;">t</span> B<span style="color: rgb(110, 15, 179);">a</span>l<span style="color: gold;">l</span> </div>
+        <div id="play-main"><img  id="play-main1" src="IconAndSound/play.svg" alt="Play" onclick="gameStart(); startGame()"></div>
+        <div id="menu">
+            <div  class="menu1"><img style="width: 50px;" src="IconAndSound/score.svg" alt="Score"></div>
+            <div  class="menu1"><img style="width: 50px;" src="IconAndSound/easy.svg" alt="Easy"></div>
+            <div  class="menu1"><img style="width: 50px;" src="IconAndSound/normal.svg" alt="Normal"></div>
+            <div  class="menu1"><img style="width: 50px;" src="IconAndSound/hard.svg" alt="Hard"></div>
+        </div>
+    </div>
+</body>
+</html>
+<script src="index.js"></script>
