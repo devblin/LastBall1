@@ -20,9 +20,10 @@ function Over() {
     pauseBut.style.display = 'none';
     homeBut.style.display = 'flex';
 }
-
+function trackPlay() {
     gameTrack.play();
-
+    gameTrack.loop = true;
+}
 function gameStart() {
     homePage.style.display = 'none';
     pauseBut.style.display = 'flex';
