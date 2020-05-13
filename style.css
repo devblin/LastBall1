@@ -5,8 +5,8 @@
     justify-content: center;
     font-family: 'Monoton';
     z-index: 3;
-    -moz-user-select: none;
-    -webkit-user-select: none;
+    -moz-user-select: none !important;
+    -webkit-user-select: none !important;
 }
 #pause{
     display: none;
@@ -28,8 +28,6 @@
     margin-left: -20px;
     position: absolute;
     justify-content: flex-end;
-    -moz-user-select: none;
-    -webkit-user-select: none;
 }
 #home2:hover{
     cursor: pointer;
@@ -49,15 +47,13 @@ canvas{
     align-items: center;
     z-index: 2;
     background-color: rgb(59, 59, 59, 0.6);
-    -moz-user-select: none;
-    -webkit-user-select: none;
+    -moz-user-select: none !important;
+    -webkit-user-select: none !important;
 }
 #play{
     height: 200px;
     position: absolute;
     z-index: 2;
-    -moz-user-select: none;
-    -webkit-user-select: none;
 }
 #play:hover{
     cursor: pointer;
@@ -72,8 +68,8 @@ canvas{
     align-items: center;
     z-index: 2;
     background-color: rgb(59, 59, 59, 0.7);
-    -moz-user-select: none;
-    -webkit-user-select: none;
+    -moz-user-select: none !important;
+    -webkit-user-select: none !important;
 }
 #over{
     color: red;
@@ -83,8 +79,6 @@ canvas{
     height: 200px;
     position: absolute;
     z-index: 2;
-    -moz-user-select: none;
-    -webkit-user-select: none;
 }
 
 #main{
@@ -95,16 +89,15 @@ canvas{
     font-family: 'Monoton';
     background-color: rgb(59, 59, 59);
     z-index: 3;
-    -moz-user-select: none;
-    -webkit-user-select: none;
+    -moz-user-select: none !important;
+    -webkit-user-select: none !important;
 }
 #title{
+    width: 100%;
     display: flex;
     justify-content: center;
     font-size: 65px;
     z-index: 3;
-    -moz-user-select: none;
-    -webkit-user-select: none;
 }
 #play-main{
     height: 50%;
@@ -114,8 +107,6 @@ canvas{
     justify-content: center;
     align-items: center;
     z-index: 3;
-    -moz-user-select: none;
-    -webkit-user-select: none;
 }
 #play-main1{
     height: 300px;
@@ -149,21 +140,19 @@ canvas{
     justify-content: center;
 }
 .menu1{
-    margin-left: 30px;
-    margin-right: 30px;
+    margin-left: 20px;
+    margin-right: 20px;
 }
 .menu1:hover{
     cursor: pointer;
     transform: scale(1.5);
     transition: 0.5s;
 }
-
 #high-score{
+    width: 100%;
     display: flex;
     position: absolute;
     top: 10px;
     font-size: 25px;
-    width: 100%;
     justify-content: center;
-    align-items: center;
 }
