@@ -1,3 +1,4 @@
+'use strict'
 let homePage = document.getElementById('main');
 let homeBut = document.getElementById('home');
 let pauseBut = document.getElementById('pause');
@@ -6,8 +7,9 @@ let pausePage = document.getElementById('game-paused');
 let gameTap = document.getElementById('balltap');
 let gameOver = document.getElementById('gameover');
 let overMessage = document.getElementById('game-over');
+let showHighScore = document.querySelector('#high-score div');
 let screenWidth = window.innerWidth > 600 ? 540 : window.innerWidth;
-let screenWidthStyle = 'width:'+String(screenWidth)+'px';
+let screenWidthStyle = 'width:' + String(screenWidth) + 'px';
 
 pauseMain.style.cssText = screenWidthStyle;
 homePage.style.cssText = screenWidthStyle;
@@ -52,7 +54,7 @@ function startGame() {
 let gameArea = {
     canvas : document.createElement('canvas'),
     start : function() {
-        this.canvas.width = window.innerWidth > 600 ? 540 : window.innerWidth;
+        this.canvas.width = screenWidth;
         this.canvas.height = window.innerHeight;
         this.canvas.style.backgroundColor = 'rgb(59, 59, 59)';
         this.context = this.canvas.getContext('2d');
@@ -70,38 +72,41 @@ let by = 200;
 let dy = 0 ;
 let distance = 0;
 let ctx;
+let bI = Math.floor(Math.random() * 4);
+let ballColor = color[bI];
 function gameBall() {
     ctx = gameArea.context;
     this.canvasHeight = gameArea.canvas.height;
     this.x = (gameArea.canvas.width)/2;
     this.y = gameArea.canvas.height -  250;
-    this.r = 10;
-    this.color = color[Math.floor(Math.random() * 4)];
+    this.color = ballColor;
+    ctx.beginPath();
     this.update = function() {
-        ctx.beginPath();
         ctx.arc(this.x, this.y, 10, 0, 2*Math.PI);
         ctx.fillStyle = this.color;
         ctx.fill();
-        ctx.closePath();
+        ctx.beginPath();
+
         let x = dy;
         document.addEventListener('click', function() {
             gameTap.play();
-            dy = 2; 
+            dy = 2;
             distance = 0;
         });
-        if(this.y < Math.floor(this.canvasHeight/2)) {     
+        if(gamePiece.y < Math.floor(gamePiece.canvasHeight/2)) {     
             by += 8;   
             score++;
         } 
-        if((this.y >= this.canvasHeight - 15) && (this.y <= this.canvasHeight - 13)) {
+        if((gamePiece.y >= gamePiece.canvasHeight - 15) && (gamePiece.y <= gamePiece.canvasHeight - 13)) {
             dy = 0;
         }
-        if((distance == 8) || (this.y < Math.floor(this.canvasHeight/2))) {     
+        if((distance == 11) || (gamePiece.y < Math.floor(gamePiece.canvasHeight/2))) {     
             dy = -1;     
         }
-        this.y -= 4*x; 
-        distance += 1;
+        gamePiece.y -= 3*x; 
+        distance++;
     }
+    ctx.closePath();
 }
 //........OBSTACLES.........//
 var angle = 0;
@@ -146,6 +151,7 @@ let Obstacles = [
             ctx.moveTo(this.x - this.r, this.y);
             // this.parts == 2 ? ctx.lineTo(this.x + this.r, this.y) : ctx.lineTo(this.x, this.y);
             ctx.lineTo(this.x, this.y)
+            ctx.lineCap = "round";
             ctx.lineWidth = 20;
             ctx.strokeStyle = color[i];
             ctx.stroke();
@@ -156,23 +162,35 @@ let Obstacles = [
 ];
 //.......SCORE........//
 var highScore = JSON.parse(localStorage.getItem('CSH')) || [];
-let text;
 function gameScore() {
-    text = score;
     ctx.font = "50px" + " " + "monospace";;
     ctx.fillStyle = "whitesmoke";
-    ctx.fillText(text, 20, 60);
+    ctx.fillText(score, 20, 60);
 }
 //............COLLISION...............//
 let rgb = 'rgb(0, 0, 0)';
 let pixel1;
+let pixel2;
 let rgb1;
+let rgb2;
+
+let rMax = [255, 125, 255, 30];
+let gMax = [255, 50, 30, 200];
+let bMax = [30, 194, 162, 255];
+
+let rMin = [240, 95, 220, 0];
+let gMin = [200, 0, 0, 146];
+let bMin = [0, 164, 132, 240];
+
 var gameRunning = true;
 function collision() {
-    pixel1 = ctx.getImageData(gamePiece.x, gamePiece.y - 15, 1, 30).data;
+    pixel1 = ctx.getImageData(gamePiece.x - 3, gamePiece.y - 2, 6, 1).data;
+    pixel2 = ctx.getImageData(gamePiece.x - 3, gamePiece.y + 2, 6, 1).data;
     rgb1 = 'rgb(' + pixel1[0] + ', ' + pixel1[1] +', ' + pixel1[2] +')';
-    if(rgb1 != rgb) {
-        if(rgb1 == gamePiece.color) {
+    rgb2 = 'rgb(' + pixel2[0] + ', ' + pixel2[1] +', ' + pixel2[2] +')';
+    
+    if(rgb1 != rgb || rgb2 != rgb) {
+        if((pixel1[0] >= rMin[bI] && pixel1[1] >= gMin[bI] && pixel1[2] >= bMin[bI] && pixel1[0] <= rMax[bI] && pixel1[1] <= gMax[bI] && pixel1[2] <= bMax[bI]) || (pixel2[0] >= rMin[bI] && pixel2[1] >= gMin[bI] && pixel2[2] >= bMin[bI] && pixel2[0] <= rMax[bI] && pixel2[1] <= gMax[bI] && pixel2[2] <= bMax[bI])) {
             gameRunning = gameRunning;
         }
         else {
@@ -183,7 +201,7 @@ function collision() {
             highScore.splice(5);
             localStorage.setItem('CSH',JSON.stringify(highScore));
         }
-    }
+    }   
 }
 //..............GAME PAUSE...........//
 function gamePause() {
@@ -216,33 +234,37 @@ for(var k = 0; k < myArr.length; k++) {
 //.................UPDATE GAME AREA....................//
 function updateGameArea() {
     gameArea.clear();
-        if(Obstacles.y > -10) {
-            direcType.shift();
+    if(Obstacles.y > -10) {
+        direcType.shift();
             direcType.push(someArr[j]);
-            obsType.shift();
+        obsType.shift();
             obsType.push(Math.floor(Math.random() * 2));
-            radType.shift();
+        radType.shift();
             radType.push(Math.floor(Math.random() * (151 - 90)) + 90);
-            disType.shift();
+        disType.shift();
             disType.push(i);
-            i -= 400;
-        }
-        for(var k = 0; k < myArr.length; k++) {
-            Obstacles[obsType[myArr[k]]](radType[myArr[k]], disType[myArr[k]], direcType[myArr[k]]);
-        }
-        if(Obstacles.y > 0) {
-            myArr.shift();
-            myArr.push(t);
-            t++;
-        }
-        gameScore();
-        c += 1;
-        if(c == 360) {  c = 0; }
-        if(angle == 360) {  angle = 0; }
-        collision();
+        i -= 400;
+    }
+    for(var k = 0; k < myArr.length; k++) {
+        Obstacles[obsType[myArr[k]]](radType[myArr[k]], disType[myArr[k]], direcType[myArr[k]]);
+    }
+    if(Obstacles.y > 0) {   
+        myArr.shift();  
+        myArr.push(t);  
+        t++;    
+    }
+    c += 1;
+    if(c == 360) {  
+        c = 0; 
+    }
+    if(angle == 360) {  
+        angle = 0; 
+    }
+    gameScore();
+    collision();
     gamePiece.update();
     if(gameRunning) {
         requestAnimationFrame(updateGameArea);
     }
 }
-highScore.length != 0 ? document.querySelector('#high-score div').innerHTML = highScore[0] : document.querySelector('#high-score div').innerHTML = 'No Score';
+showHighScore.innerHTML = highScore.length != 0 ?  highScore[0] : 'No Score';
