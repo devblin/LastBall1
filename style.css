@@ -109,7 +109,7 @@ canvas{
     z-index: 3;
 }
 #play-main1{
-    height: 300px;
+    height: 250px;
     position: absolute;
     z-index: 3;
     animation-name: pulse_animation;
