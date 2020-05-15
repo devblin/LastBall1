@@ -1,4 +1,3 @@
-'use strict'
 let homePage = document.getElementById('main');
 let homeBut = document.getElementById('home');
 let pauseBut = document.getElementById('pause');
@@ -85,13 +84,12 @@ function gameBall() {
         ctx.arc(this.x, this.y, 10, 0, 2*Math.PI);
         ctx.fillStyle = this.color;
         ctx.fill();
-
         let x = dy;
-        document.addEventListener('click', function() {
+        document.addEventListener('click',function() {
             gameTap.play();
             dy = 2;
             distance = 0;
-        });
+        })
         if(gamePiece.y < Math.floor(gamePiece.canvasHeight/2)) {     
             by += 8;   
             score++;
@@ -174,15 +172,12 @@ let pixel1;
 let pixel2;
 let rgb1;
 let rgb2;
-
-let rMax = [255, 125, 255, 30];
-let gMax = [255, 50, 30, 200];
-let bMax = [30, 194, 162, 255];
-
-let rMin = [240, 95, 220, 0];
-let gMin = [200, 0, 0, 146];
-let bMin = [0, 164, 132, 240];
-
+let rMax = [255, 170, 255, 117];
+let gMax = [255, 40, 100, 220];
+let bMax = [100, 200, 162, 255];
+let rMin = [220, 72, 200, 0];
+let gMin = [183, 0, 0, 138];
+let bMin = [0, 100, 100, 184];
 var gameRunning = true;
 function collision() {
     pixel1 = ctx.getImageData(gamePiece.x - 3, gamePiece.y - 2, 6, 1).data;
@@ -202,6 +197,15 @@ function collision() {
         }
     }
 }
+//..............GAME COMPONENTS.................//
+function multiColorBall(r, image) {
+    bW = gameArea.canvas.width/2;
+    bH = luck + by;
+    this.r = r;
+    this.image = new Image();
+    this.image.src = image;
+    ctx.drawImage(this.image, bW - this.r/2, bH, this.r, this.r); 
+} 
 //..............GAME PAUSE...........//
 function gamePause() {
     gameRunning = !gameRunning;
@@ -230,9 +234,16 @@ for(var k = 0; k < myArr.length; k++) {
     disType.push(i);
     i -= 450;
 }
+var luck = 0;
 //.................UPDATE GAME AREA....................//
 function updateGameArea() {
     gameArea.clear();
+    multiColorBall(20, 'IconAndSound/ball.svg');
+    if(gamePiece.y - bH >= 35 && gamePiece.y - bH <= 50) {
+        gamePiece.color = color[Math.floor(Math.random() * 4)];
+        bI = color.indexOf(gamePiece.color);
+        luck -= 900;
+    }
     if(Obstacles.y > -10) {
         direcType.shift();
             direcType.push(someArr[j]);
@@ -243,14 +254,14 @@ function updateGameArea() {
         disType.shift();
             disType.push(i);
         i -= 450;
-        }
+    }
     for(var k = 0; k < myArr.length; k++) {
         Obstacles[obsType[myArr[k]]](radType[myArr[k]], disType[myArr[k]], direcType[myArr[k]]);
     }
     if(Obstacles.y > 0) {   
         myArr.shift();  
-        myArr.push(t);  
-        t++;    
+        myArr.push(t);
+        t++;  
     }
     c += 1;
     if(c == 360) {  
@@ -259,8 +270,8 @@ function updateGameArea() {
     if(angle == 360) {  
         angle = 0; 
     }
-    gameScore();
     collision();
+    gameScore();
     gamePiece.update();
     if(gameRunning) {
         requestAnimationFrame(updateGameArea);
