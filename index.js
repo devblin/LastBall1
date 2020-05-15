@@ -48,7 +48,7 @@ function mainMenu() {
 var gamePiece;
 function startGame() {
     gameArea.start(); 
-    gamePiece = new gameBall(); 
+    gamePiece = new gameBall();
 }
 //........GAME AREA LOAD.........//
 let gameArea = {
@@ -85,7 +85,6 @@ function gameBall() {
         ctx.arc(this.x, this.y, 10, 0, 2*Math.PI);
         ctx.fillStyle = this.color;
         ctx.fill();
-        ctx.beginPath();
 
         let x = dy;
         document.addEventListener('click', function() {
@@ -162,6 +161,8 @@ let Obstacles = [
 ];
 //.......SCORE........//
 var highScore = JSON.parse(localStorage.getItem('CSH')) || [];
+highScore.sort(function(a, b){return b - a;});
+highScore.splice(5);
 function gameScore() {
     ctx.font = "50px" + " " + "monospace";;
     ctx.fillStyle = "whitesmoke";
@@ -197,11 +198,9 @@ function collision() {
             gameRunning = !gameRunning;
             Over();
             highScore.push(score);
-            highScore.sort(function(a, b){return b - a;});
-            highScore.splice(5);
             localStorage.setItem('CSH',JSON.stringify(highScore));
         }
-    }   
+    }
 }
 //..............GAME PAUSE...........//
 function gamePause() {
@@ -229,7 +228,7 @@ for(var k = 0; k < myArr.length; k++) {
     obsType.push(j);
     radType.push(r); 
     disType.push(i);
-    i -= 400;
+    i -= 450;
 }
 //.................UPDATE GAME AREA....................//
 function updateGameArea() {
@@ -243,8 +242,8 @@ function updateGameArea() {
             radType.push(Math.floor(Math.random() * (151 - 90)) + 90);
         disType.shift();
             disType.push(i);
-        i -= 400;
-    }
+        i -= 450;
+        }
     for(var k = 0; k < myArr.length; k++) {
         Obstacles[obsType[myArr[k]]](radType[myArr[k]], disType[myArr[k]], direcType[myArr[k]]);
     }
