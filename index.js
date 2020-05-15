@@ -198,13 +198,12 @@ function collision() {
     }
 }
 //..............GAME COMPONENTS.................//
-function multiColorBall(r, image) {
+function multiColorBall() {
     bW = gameArea.canvas.width/2;
     bH = luck + by;
-    this.r = r;
     this.image = new Image();
-    this.image.src = image;
-    ctx.drawImage(this.image, bW - this.r/2, bH, this.r, this.r); 
+    this.image.src = 'IconAndSound/ball.svg';
+    ctx.drawImage(this.image, bW - this.r/2, bH, 20, 20); 
 } 
 //..............GAME PAUSE...........//
 function gamePause() {
@@ -238,7 +237,7 @@ var luck = 0;
 //.................UPDATE GAME AREA....................//
 function updateGameArea() {
     gameArea.clear();
-    multiColorBall(20, 'IconAndSound/ball.svg');
+    multiColorBall();
     if(gamePiece.y - bH >= 35 && gamePiece.y - bH <= 50) {
         gamePiece.color = color[Math.floor(Math.random() * 4)];
         bI = color.indexOf(gamePiece.color);
