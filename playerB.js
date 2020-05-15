@@ -27,7 +27,6 @@ let gameAreaB = {
     }
 }
 //.........BALLS....................................................................................//
-
 let byB = 200;
 let dyB = 0 ;
 let distanceB = 0;
@@ -120,11 +119,10 @@ let ObstaclesB = [
         ctxB.restore();
     }
 ];
-
-// let pixel3;
-// let pixel4;
 let rgb3;
 let rgb4;
+let pixel3;
+let pixel4;
 
 function collisionB() {
     pixel3 = ctxB.getImageData(gamePieceB.x - 3, gamePieceB.y - 2, 6, 1).data;
@@ -146,9 +144,6 @@ function collisionB() {
             playerA.style.color = 'green';
         }
     }
-    console.log(rgb3);
-    console.log(rgb4);
-    
 }
 
 function gamePauseB() {
@@ -175,7 +170,7 @@ for(var k = 0; k < myArrB.length; k++) {
     obsTypeB.push(jB);
     radTypeB.push(rB); 
     disTypeB.push(iB);
-    iB -= 400;
+    iB -= 450;
 }
 function updategameAreaB() {
     gameAreaB.clear();
@@ -188,7 +183,7 @@ function updategameAreaB() {
             radTypeB.push(Math.floor(Math.random() * (151 - 90)) + 90);
         disTypeB.shift();
             disTypeB.push(iB);
-        iB -= 400;
+        iB -= 450;
     }
     //....PLAYER - A
     for(var k = 0; k < myArrB.length; k++) {
