@@ -1,4 +1,3 @@
-// 'use strict'
 let gamePiece;
 function startGame() {
     gameArea.start();
@@ -65,7 +64,6 @@ function gameBall(x, y, color) {
         distance++;
     }
 }
-
 //........................OBSTACLES.........................//
 let c = 0;
 var angle = 0;
@@ -119,7 +117,6 @@ let Obstacles = [
         ctx.restore();
     }
 ];
-
 let pixel1;
 let pixel2;
 let rgb1;
@@ -175,7 +172,7 @@ for(var k = 0; k < myArr.length; k++) {
     obsType.push(j);
     radType.push(r); 
     disType.push(i);
-    i -= 400;
+    i -= 450;
 }
 function updateGameArea() {
     gameArea.clear();
@@ -188,7 +185,7 @@ function updateGameArea() {
             radType.push(Math.floor(Math.random() * (151 - 90)) + 90);
         disType.shift();
             disType.push(i);
-        i -= 400;
+        i -= 450;
     }
     //....PLAYER - A
     for(var k = 0; k < myArr.length; k++) {
