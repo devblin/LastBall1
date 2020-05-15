@@ -203,7 +203,7 @@ function multiColorBall() {
     bH = luck + by;
     this.image = new Image();
     this.image.src = 'IconAndSound/ball.svg';
-    ctx.drawImage(this.image, bW - this.r/2, bH, 20, 20); 
+    ctx.drawImage(this.image, bW - 10, bH, 20, 20); 
 } 
 //..............GAME PAUSE...........//
 function gamePause() {
