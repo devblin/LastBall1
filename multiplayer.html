@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="shortcut icon" href="#" />
+    <link href="https://fonts.googleapis.com/css2?family=Monoton&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="multiplayer.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LastBall-Multiplayer</title>
+</head>
+<body style="margin:0; display: flex; flex-direction: row; justify-content: center; background-color: rgb(59,59,59);" onload="compat()">
+    <audio autoplay>
+        <source src="IconAndSound/LastBallSong.mp3">
+    </audio>
+    <div id="pause">
+        <div id="A"></div>
+        <div id="B"></div>
+        <div id="replay" onclick="replayGame()">&#8635;</div>
+        <div id="home"><a href="index.html"><img style="width: 50px;" src="IconAndSound/home.svg" alt="Home"></a></div>
+    </div>
+    <div id="info">
+        <div id="InfoA">Player - A</div>
+        <div id="InfoB">Player - B</div>
+    </div>
+    <div id="general">
+        <div id="gA">"Press 'W' to move"</div>
+        <div id="gB">"Press '&#8679;' to move"</div>
+    </div>
+    <script>
+    let gameOver = document.getElementById('pause');
+    let playerA = document.getElementById('A');
+    let playerB = document.getElementById('B');
+    let generalPage = document.getElementById('general');
+    let infoPage = document.getElementById('info');
+
+    let gameRunning = true;
+
+    let color = ['rgb(255, 215, 0)','rgb(110, 15, 179)','rgb(255, 20, 147)','rgb(0, 191, 255)'];
+    let rgb = 'rgb(0, 0, 0)';
+    let rMax = [255, 125, 255, 30];
+    let gMax = [255, 50, 30, 200];
+    let bMax = [30, 194, 162, 255];
+
+    let rMin = [240, 95, 220, 0];
+    let gMin = [200, 0, 0, 146];
+    let bMin = [0, 164, 132, 240];
+ 
+    function replayGame() {
+        window.location.reload();
+    }
+    function compat() {
+        if(innerWidth >= 800) {
+            startGame();
+            startGameB();
+            generalPage.style.display = 'flex';
+            infoPage.style.display = 'flex';
+        }
+        else {
+            alert('Multiplayer for screen width less than 800px NOT AVAILABLE');
+        }   
+    }
+    </script>
+</body>
+</html>
+<script src="playerA.js"></script>
+<script src="playerB.js"></script>

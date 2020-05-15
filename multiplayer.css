@@ -1,0 +1,91 @@
+body{
+    -moz-user-select: none !important;
+    -webkit-user-select: none !important;
+}
+#general{
+    width: 800px;
+    height: 100px;
+    bottom: 0;
+    display: none;
+    flex-direction: row;
+    color: orange;
+    position: absolute;
+    text-align: center;
+    font-family: 'monospace';
+    align-items: center;
+}
+#gA, #gB{
+    width: 400px;
+    font-size: 20px;
+}
+#pause{
+    width: 800px;
+    height: 100%;
+    display: none;
+    flex-direction: row;
+    color: whitesmoke;
+    position: absolute;
+    text-align: center;
+    font-family: 'Monoton';
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    background-color: rgb(59, 59, 59, 0.6);
+}
+#A, #B{
+    width: 400px;
+    font-size: 50px;
+}
+#replay{
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    font-size: 100px;
+    animation-name: pulse_animation;
+    animation-duration: 5000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease;
+}
+#replay:hover{
+    color: springgreen;
+    cursor: pointer;
+    transition: 0.5s;
+}
+@keyframes pulse_animation {
+    0% { transform: scale(1); }
+    12.5% { transform: scale(1.5); }
+    25% { transform: scale(1); }
+    37.5% { transform: scale(1.5); }
+    50% { transform: scale(1); }
+    62.5% { transform: scale(1.5); }
+    75% { transform: scale(1); }
+    87.5% { transform: scale(1.5); }
+    100% { transform: scale(1);}
+}
+#home{
+    top: 0;
+    margin-top: 100px;
+    display: flex;
+    position: absolute;
+}
+#home:hover{
+    transform: scale(1.1);
+    transition: 1.1s;
+}
+#info{
+    width: 800px;
+    height: 40px;
+    font-size: 20px;
+    display: none;
+    flex-direction: row;
+    color: whitesmoke;
+    position: absolute;
+    text-align: center;
+    font-family: 'monospace';
+    align-items: center;
+    z-index: 3;
+    background-color: rgb(59, 59, 59, 0.8);
+}
+#InfoA, #InfoB{
+    width: 400px;
+}
